@@ -61,8 +61,9 @@ class ITSEC_Backup {
 				! defined( 'ITSEC_BACKUP_CRON' ) ||
 				false === ITSEC_BACKUP_CRON
 			) &&
-			true === $this->settings['enabled'] &&
 			! class_exists( 'pb_backupbuddy' ) &&
+			true === $this->settings['enabled'] &&
+			( $this->settings['interval'] > 0 ) &&
 			( $itsec_globals['current_time_gmt'] - $this->settings['interval'] * 24 * 60 * 60 ) > $this->settings['last_run']
 		) {
 
@@ -91,7 +92,7 @@ class ITSEC_Backup {
 
 		global $itsec_files;
 
-		ITSEC_Lib::set_minimum_memory_limit( '128M' );
+		ITSEC_Lib::set_minimum_memory_limit( '256M' );
 
 		if ( $itsec_files->get_file_lock( 'backup' ) ) {
 

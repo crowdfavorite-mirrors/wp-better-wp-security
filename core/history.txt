@@ -295,3 +295,17 @@
 	Enhancement: Removed Yandex and Sogou from the HackRepair blacklist as they are legitimate search engine bots.
 	Enhancement: Added detailed information about Sucuri malware scan errors to Malware Scan log details.
 	Bug Fix: No longer enables display of database errors when an event is logged.
+2.1.0 - 2016-01-11 - Chris Jean & Aaron D. Campbell
+	Security Fix: Fixed PHP code that could allow AJAX requests to list directories and files outside the directory structure of the WordPress installation. Note that these AJAX requests required a logged in user with admin-level privileges. This vulnerability was unable to be exploited by non-privileged or anonymous requests.
+	Bug Fix: Updated the SSL feature to use 301 redirects rather than 302 redirects.
+	Bug Fix: Fixed situations where security nonces would incorrectly trigger "security check" errors when enabling specific combinations of features on the settings page.
+	Bug Fix: Enabling scheduled database backups and setting a backup interval of 0 days no longer results in a backup being created on every page load.
+	Feature Removal: Removed the "Security Status" portion of the Security > Dashboard page. This is in preparation for a new tool that provides suggestions tailored to the site and server that Security is running on.
+	Enhancement: Updated the way the feature modules function in order to allow them to be redesigned in a more efficient and flexible way for future releases.
+	Enhancement: Updated the File Change Detection feature to attempt a max memory limit of 256M rather than 128M as some users experience out of memory issues which could be fixed with the higher memory limit.
+	Enhancement: Updated the Database Backup feature to attempt a max memory limit of 256M rather than 128M as some users experience out of memory issues which could be fixed with the higher memory limit.
+	Enhancement: Added localization support for some non-localized strings.
+2.1.1 - 2016-01-14 - Chris Jean & Aaron D. Campbell
+	Bug Fix: Module-specific data is properly initialized/removed on plugin activation, deactivation, and uninstallation.
+2.1.2 - 2016-01-15 - Chris Jean & Aaron D. Campbell
+	Enhancement: Updated handler for multiple active versions of iThemes Security.

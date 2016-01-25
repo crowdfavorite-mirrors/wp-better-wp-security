@@ -105,34 +105,8 @@ class ITSEC_Setup {
 	 * @return void
 	 */
 	function do_modules() {
-
-		global $itsec_globals;
-
-		$free_modules_folder = trailingslashit( $itsec_globals['plugin_dir'] ) . 'core/modules';
-		$pro_modules_folder  = trailingslashit( $itsec_globals['plugin_dir'] ) . 'pro';
-
-		$has_pro = is_dir( $pro_modules_folder );
-
-		if ( $has_pro ) {
-
-			foreach ( $itsec_globals['pro_modules'] as $module => $info ) {
-
-				if ( file_exists( $pro_modules_folder . '/' . $module . '/setup.php' ) ) {
-					require( $pro_modules_folder . '/' . $module . '/setup.php' );
-				}
-
-			}
-
-		}
-
-		foreach ( $itsec_globals['free_modules'] as $module => $info ) {
-
-			if ( ( $has_pro === false || ! in_array( $module, $itsec_globals['pro_modules'] ) ) && file_exists( $free_modules_folder . '/' . $module . '/setup.php' ) ) {
-				require( $free_modules_folder . '/' . $module . '/setup.php' );
-			}
-
-		}
-
+		$itsec_modules = ITSEC_Modules::get_instance();
+		$itsec_modules->run_activation();
 	}
 
 	/**
