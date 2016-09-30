@@ -72,13 +72,16 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 	 *
 	 **/
 	function column_host( $item ) {
+		require_once( ITSEC_Core::get_core_dir() . '/lib/class-itsec-lib-ip-tools.php' );
 
 		$r = array();
 		if ( ! is_array( $item['host'] ) ) {
 			$item['host'] = array( $item['host'] );
 		}
 		foreach ( $item['host'] as $host ) {
-			$r[] = '<a href="http://ip-adress.com/ip_tracer/' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '" target="_blank">' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '</a>';
+			if ( ITSEC_Lib_IP_Tools::validate( $host ) ) {
+				$r[] = '<a href="http://www.traceip.net/?query=' . urlencode( $host ) . '" target="_blank">' . esc_html( $host ) . '</a>';
+			}
 		}
 		$return = implode( '<br />', $r );
 
@@ -145,9 +148,9 @@ final class ITSEC_Logger_All_Logs extends ITSEC_WP_List_Table {
 		global $itsec_logger;
 
 		$raw_data = maybe_unserialize( $item['data'] );
-		
+
 		$data = apply_filters( "itsec_logger_filter_{$item['type']}_data_column_details", '', $raw_data );
-		
+
 		if ( empty( $data ) ) {
 			if ( is_array( $raw_data ) && sizeof( $raw_data ) > 0 ) {
 
